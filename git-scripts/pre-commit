@@ -1,0 +1,22 @@
+#!/bin/sh
+# Find all Cargo.toml files and run cargo fmt in their directories
+
+# This pre-commit hook script ensures that Rust code is properly formatted
+# before committing. It searches for all Cargo.toml files within the repository,
+# changes to their respective directories, runs `cargo fmt` to format the code,
+# stages any changes made by `cargo fmt`, and then returns to the root directory.
+
+# Get the root directory of the repository
+REPO_ROOT=$(git rev-parse --show-toplevel)
+
+# Find all directories containing Cargo.toml within the repository
+find "$REPO_ROOT" -name Cargo.toml -exec dirname {} \; | while read -r dir; do
+    # Change to the directory
+    cd "$dir"
+    # Run cargo fmt
+    cargo fmt
+    # Stage any changes made by cargo fmt
+    git add .
+    # Change back to the root directory
+    cd "$REPO_ROOT"
+done
