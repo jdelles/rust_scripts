@@ -71,7 +71,7 @@ use chrono::prelude::*;
 fn main() {
     let today = Local::now().format("%Y-%m-%d").to_string();
     let year = Local::now().format("%Y").to_string();
-    let file_path = format!("/captains-log/journals/{}/{}.md", year, today);
+    let file_path = format!("/Users/jamesdelles/captains-log/journals/{}/{}.md", year, today);
 
     let path = Path::new(&file_path);
     let display = path.display();
@@ -82,25 +82,27 @@ fn main() {
     }
 
     let template = format!(
-        r#"# Captain's Log - {}\n\n\
-        ## Today's Log\n\
-        - \n\
-        - \n\
-        - \n\
-        - \n\
-        - \n\
-        - \n\
-        - \n\
-        - \n\n\
-        ## Looking Ahead\n\
-        - \n\
-        - \n\
-        - \n\
-        - \n\n\
-        ## Observations\n\
-        - \n\
-        - \n\
-        - \n\n"#,
+        r#"# Captain's Log - {}
+    
+## Today's Log
+
+- 
+- 
+- 
+
+## Looking Ahead
+
+- 
+- 
+- 
+
+## Observations
+
+- 
+- 
+- 
+
+"#,
         Local::now().format("%B %d, %Y")
     );
 
