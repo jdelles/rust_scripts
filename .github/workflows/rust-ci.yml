@@ -13,21 +13,39 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3
+
     - name: Set up Rust
       uses: actions-rs/toolchain@v1
       with:
         toolchain: stable
         override: true
         components: clippy, rustfmt
-    - name: Install dependencies
-      run: cargo install --path .
-    - name: Build
-      run: cargo build --verbose --all-features
-    - name: Test
-      run: cargo test --verbose --all-features
-    - name: Clippy
-      run: cargo clippy --verbose --all-features -- -D warnings
-    - name: Format
-      run: cargo fmt --verbose --all -- --check
-    - name: Audit
-      run: cargo install cargo-audit && cargo audit --verbose
+
+    - name: Find and process all Rust modules
+      run: |
+        # Find all directories containing Cargo.toml
+        for dir in $(find . -name Cargo.toml -exec dirname {} \;); do
+          echo "Processing $dir"
+          cd $dir
+          
+          # Install dependencies
+          cargo install --path .
+          
+          # Build the project
+          cargo build --verbose --all-features
+          
+          # Run tests
+          cargo test --verbose --all-features
+          
+          # Run clippy
+          cargo clippy --verbose --all-features -- -D warnings
+          
+          # Check formatting
+          cargo fmt --verbose --all -- --check
+          
+          # Run audit
+          cargo install cargo-audit && cargo audit --verbose
+          
+          # Return to the root directory
+          cd -
+        done
