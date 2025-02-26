@@ -39,39 +39,42 @@
     # Captain's Log - February 17, 2025
 
     ## Today's Log
-    - 
-    - 
-    - 
-    - 
-    - 
-    - 
-    - 
-    - 
+    -
+    -
+    -
+    -
+    -
+    -
+    -
+    -
 
     ## Looking Ahead
-    - 
-    - 
-    - 
-    - 
+    -
+    -
+    -
+    -
 
     ## Observations
-    - 
-    - 
-    - 
+    -
+    -
+    -
     ```
 
     The script checks if a file with the same name already exists and aborts if it does, to prevent overwriting existing journal entries.
 */
 
+use chrono::prelude::*;
 use std::fs::File;
 use std::io::Write;
 use std::path::Path;
-use chrono::prelude::*;
 
 fn main() {
     let today = Local::now().format("%Y-%m-%d").to_string();
     let year = Local::now().format("%Y").to_string();
-    let file_path = format!("/Users/jamesdelles/captains-log/journals/{}/{}.md", year, today);
+    let file_path = format!(
+        "/Users/jamesdelles/captains-log/journals/{}/{}.md",
+        year, today
+    );
 
     let path = Path::new(&file_path);
     let display = path.display();
