@@ -30,4 +30,4 @@ jobs:
     - name: Format
       run: cargo fmt --verbose --all -- --check
     - name: Audit
-      run: cargo audit --verbose
+      run: cargo install cargo-audit && cargo audit --verbose
