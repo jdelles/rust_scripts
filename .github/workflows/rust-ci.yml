@@ -14,9 +14,11 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
     - name: Set up Rust
-      uses: actions/setup-rust@v1
+      uses: actions-rs/toolchain@v1
       with:
-        rust-version: 1.85.0
+        toolchain: stable
+        override: true
+        components: clippy, rustfmt
     - name: Install dependencies
       run: cargo install --path .
     - name: Build
