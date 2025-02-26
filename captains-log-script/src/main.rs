@@ -106,7 +106,7 @@ fn main() {
         Local::now().format("%B %d, %Y")
     );
 
-    let mut file = match File::create(&path) {
+    let mut file = match File::create(path) {
         Err(why) => panic!("couldn't create {}: {}", display, why),
         Ok(file) => file,
     };
