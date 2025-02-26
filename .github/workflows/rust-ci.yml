@@ -44,7 +44,7 @@ jobs:
           cargo fmt --verbose --all -- --check
           
           # Run audit
-          cargo install cargo-audit && cargo audit --verbose
+          cargo install cargo-audit && cargo audit
           
           # Return to the root directory
           cd -
